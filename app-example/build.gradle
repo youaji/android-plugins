@@ -1,0 +1,72 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'youaji-publisher'
+}
+
+publisher {
+    repo {
+        username = "仓库用户名"
+        password = "仓库密码"
+        releaseUrl = "仓库正式版本地址"
+        snapshotUrl = "仓库快照版本地址"
+    }
+
+    lib {
+        artifact = "库名称 e.g. lib-example"
+        group = "库包名 e.g. com.lib.example"
+        version = "库版本 e.g. 1.0.0"
+        desc = "库描述信息"
+        withSource = true// 是否含源码
+    }
+
+    pom {
+        name = "库名称 e.g. lib-example"
+        desc = "POM Description"
+        url = "youaji.com"
+        publisher = "Youaji"
+    }
+}
+
+android {
+    namespace 'com.youaji.example.plugins'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.youaji.example.plugins"
+
+        minSdk 24
+        targetSdk 34
+
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    testImplementation libs.junit
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.espresso.core
+
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.material
+}
